@@ -31,6 +31,11 @@ addStackButton.onclick = () => {
         name,
     } = addInput; // We want only "value" value
 
+    if (!value) {
+        errorMsg ('Please, choose a value');
+        return;
+    }
+
     if (stack.canPush() && value) {
         
         const nextLiNum = stack.size +1 ;
@@ -42,21 +47,27 @@ addStackButton.onclick = () => {
         stack.push(value);  // insere o valor e atualiza o size para inserir o próximo item
         console.log(name);
         addInput.value = "";
+        addInput.focus();
     } else {
+        errorMsg('Stack overflow');
+    }
+    
+    function errorMsg (message) {
         console.log("Not here!");
-        if (value){
-            message = 'please, choose a value'
-        }
+        // if (value){
+        //     message = 'please, choose a value'
+        // }
         // Getting last li element so we can use on insertBefore method
         const lastLi = document.querySelector(`li[data-stack="${stack.MAX_SIZE}"]`)
         // creating new li element for stack overflow 
         const newLi = document.createElement('li');
         newLi.classList.add('list-group-item', 'list-group-item-danger')
-        newLi.innerHTML = 'Stack overflow';
+        newLi.innerHTML = message;
         // inserting the stack overflow li element in the DOM
         ulStack.insertBefore(newLi, lastLi);
         setTimeout ( () => ulStack.removeChild(newLi), 500 );
+        addInput.focus();
+        
     }
-
 
 }
