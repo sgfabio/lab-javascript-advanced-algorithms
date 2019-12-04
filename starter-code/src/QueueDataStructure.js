@@ -1,2 +1,11 @@
-function QueueDataStructure () {
+class QueueDataStructure {
+    constructor {
+
+        this.queueControl = []
+
+
+    }
+    
+
+
 }
